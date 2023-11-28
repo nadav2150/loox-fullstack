@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PreviewCard from "./shared/PreviewCard";
 import apiService from "../services/apiService";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-  /* background-color: red; */
   padding: 16px;
   overflow: auto;
   padding-bottom: 40px;
@@ -15,20 +13,8 @@ const Wrapper = styled.div`
   }
 `;
 
-// const PreviewCardWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 16px;
-//   overflow: auto;
-//   height: 100%;
-//   &::-webkit-scrollbar {
-//     display: none;
-//   }
-// `;
-
 export default function ArticleList() {
-  const navigate = useNavigate();
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore] = useState(true);
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -36,6 +22,8 @@ export default function ArticleList() {
   }, []);
 
   const fetchData = async () => {
+    // get articles by limit 20 can be changed in the request to demonstrate infinite scroll easy can add
+    // can easy add start index  `/articles?limit=20&startIndex=0` -> `/articles?limit=20&startIndex=20`
     const { data } = await apiService.get(`/articles?limit=20`);
     setArticles(data);
   };
