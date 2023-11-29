@@ -38,7 +38,7 @@ export default function ArticleList() {
         loader={<h4>Loading...</h4>}
       >
         {articles.map((article) => {
-          return <PreviewCard article={article} />;
+          return <PreviewCard key={`article${article.id}`} article={article} />;
         })}
       </InfiniteScroll>
     </Wrapper>
